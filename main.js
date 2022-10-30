@@ -39,7 +39,7 @@ const romanize = (num) => {
   return Array(+digits.join("") + 1).join("M") + roman;
 };
 
-const char_to_int = c => {
+const char_to_int = (c) => {
   switch (c) {
     case "I":
       return 1;
@@ -58,7 +58,7 @@ const char_to_int = c => {
     default:
       return -1;
   }
-}
+};
 const roman_to_Int = (str1) => {
   if (str1 == null) return -1;
   let num = char_to_int(str1.charAt(0));
@@ -91,21 +91,42 @@ const checkCorrectRoman = (input) => {
   return number;
 };
 
-const romanCalculator = ()=>{
-    let sum = 0;
-    let inputNum = prompt("Please Enter Roman Number 1");
-    let operator = prompt(`Enter operator :  + , - , / , *`);
-    let inputNum2 = prompt("Please Enter Roman Number 2");
-
+const romanCalculator = () => {
+  let sum = 0;
+  let inputNum;
+  let operator;
+  let inputNum2;
+  let inputExit;
+  while(inputExit != 'exit'){
+    inputNum = prompt("Please Enter Roman Number 1");
+    operator = prompt(`Enter operator :  + , - , / , *`);
+    inputNum2 = prompt("Please Enter Roman Number 2");
+    inputExit = prompt('To finish type exit else continue');
     if (checkCorrectRoman(inputNum) && checkCorrectRoman(inputNum2) && inputNum !== null && inputNum2 !== null) {
-        if (operator === "+") sum = roman_to_Int(inputNum) + roman_to_Int(inputNum2);
-        if (operator === "-") sum = roman_to_Int(inputNum) - roman_to_Int(inputNum2);
-        if (operator === "*") sum = roman_to_Int(inputNum) * roman_to_Int(inputNum2);
-        if (operator === "/") sum = roman_to_Int(inputNum) / roman_to_Int(inputNum2);
+        if (operator === "+"){
+           sum += roman_to_Int(inputNum) + roman_to_Int(inputNum2);
+            // return inputNum = romanize(sum)
+        }
+        if (operator === "-"){
+          sum += roman_to_Int(inputNum) - roman_to_Int(inputNum2);
+          //  return inputNum = romanize(sum)
+        }
+        if (operator === "*"){
+          sum += roman_to_Int(inputNum) * roman_to_Int(inputNum2);
+          //  return inputNum = romanize(sum)
+        }
+        if (operator === "/"){
+          sum += roman_to_Int(inputNum) / roman_to_Int(inputNum2);
+          //  return inputNum = romanize(sum)
+        }
     }else{
         return 'one or both of the input numbers is not roman or they are higher than 100'
     }
-  return romanize(sum)
-}
+    if(inputExit === 'exit'){
+      break;
+    }
+  }
+  return romanize(sum);
+};
 
-console.log(romanCalculator());
+document.querySelector('.answer-para').textContent = romanCalculator()
